@@ -213,8 +213,19 @@ npm run preview    # serve the production build locally
 | <sub>`npm test`</sub> | <sub>Run the typing-engine and storage unit tests</sub> |
 | <sub>`npm run lint`</sub> | <sub>TypeScript type check (`tsc --noEmit`)</sub> |
 | <sub>`npm run clean`</sub> | <sub>Remove the `dist/` folder</sub> |
+| <sub>`npm run electron:dev`</sub> | <sub>Build the site and open it in a desktop (Electron) window</sub> |
+| <sub>`npm run dist:win`</sub> | <sub>Build the Windows installer into `release/`</sub> |
 
 </small>
+
+### Build the Windows installer yourself
+
+```bash
+npm install
+npm run dist:win
+```
+
+The installer is created in `release/` as `Pilla-Setup-<version>.exe` (installer wizard with install-folder choice, desktop and Start Menu shortcuts). Building on Windows works out of the box; on Linux/macOS you additionally need [Wine](https://www.winehq.org/).
 
 <br/>
 
@@ -244,6 +255,7 @@ Net WPM   = max(0, Gross WPM − Uncorrected Errors / Minutes)
 | **Language** | TypeScript |
 | **UI framework** | React 19 |
 | **Build tool** | Vite |
+| **Desktop shell** | Electron + electron-builder (NSIS installer) |
 | **Styling** | Tailwind CSS 4 |
 | **Animation** | Motion |
 | **Icons** | Lucide |
@@ -265,7 +277,7 @@ Net WPM   = max(0, Gross WPM − Uncorrected Errors / Minutes)
 
 | <sub>Component</sub> | <sub>Windows .exe</sub> | <sub>Run from source</sub> |
 |:---:|:---:|:---:|
-| <sub>OS</sub> | <sub>Windows (see the Release notes for the supported version)</sub> | <sub>Windows, macOS or Linux</sub> |
+| <sub>OS</sub> | <sub>Windows 10 / 11 (64-bit)</sub> | <sub>Windows, macOS or Linux</sub> |
 | <sub>Node.js / npm</sub> | <sub>Not required</sub> | <sub>Node.js 20.19+ or 22.12+</sub> |
 | <sub>Internet</sub> | <sub>Optional — only used to load web fonts</sub> | <sub>Needed once for `npm install`</sub> |
 
@@ -288,6 +300,8 @@ Pilla/
 ├── package.json
 ├── vite.config.ts
 ├── tsconfig.json
+├── electron/                 # Desktop app entry (main process)
+├── build/                    # App icon + installer artwork
 ├── screenshots/              # Images used in this README
 ├── public/
 │   ├── audio/                # Background piano + attribution

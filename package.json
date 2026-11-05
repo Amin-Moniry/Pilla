@@ -1,7 +1,7 @@
 {
   "name": "pilla",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000",
@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
-    "test": "tsx --test src/utils/*.test.ts"
+    "test": "tsx --test src/utils/*.test.ts",
+    "electron:dev": "vite build && electron .",
+    "dist:win": "vite build && electron-builder --win --x64"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
@@ -27,9 +29,68 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "autoprefixer": "^10.4.21",
+    "electron": "^45.2.3",
+    "electron-builder": "^26.18.0",
     "esbuild": "^0.28.0",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.21.0",
     "typescript": "^7.0.2"
+  },
+  "description": "Pilla (پیلا) — bilingual Persian & English touch-typing tutor",
+  "author": {
+    "name": "Amin Moniry",
+    "email": "noreply@example.com"
+  },
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "com.aminmoniry.pilla",
+    "productName": "Pilla",
+    "copyright": "Copyright © Amin Moniry",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "signExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Pilla",
+      "runAfterFinish": true,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico",
+      "installerSidebar": "build/installerSidebar.bmp",
+      "uninstallerSidebar": "build/installerSidebar.bmp",
+      "artifactName": "Pilla-Setup-${version}.exe"
+    },
+    "portable": {
+      "artifactName": "Pilla-Portable-${version}.exe"
+    }
   }
 }
